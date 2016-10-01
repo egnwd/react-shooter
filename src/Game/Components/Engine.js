@@ -8,6 +8,7 @@ import { spawnUFO } from '../Actions/ufo';
 import connect from '../../Lib/connect';
 import InputCapture from './InputCapture';
 import UFO from './UFO';
+import Bullet from './Bullet';
 
 const TEXT_STYLE = {
   position: 'absolute',
@@ -25,6 +26,12 @@ const UFO_CONTAINER_STYLE = {
   left: '50%',
   marginLeft: -91 / 2,
 };
+const BULLET_CONTAINER_STYLE = {
+  position: 'absolute',
+  bottom: 98,
+  left: '50%',
+  marginLeft: -16 / 2,
+};
 const SHIP_CONTAINER_STYLE = {
   position: 'absolute',
   bottom: 20,
@@ -40,6 +47,7 @@ class Engine extends Component {
 
   static propTypes = {
     ufos: PropTypes.objectOf(PropTypes.shape(UFO.propTypes)).isRequired,
+    bullets: PropTypes.objectOf(PropTypes.shape(Bullet.propTypes)).isRequired,
     onTick: PropTypes.func.isRequired,
     spawnEnemy: PropTypes.func.isRequired,
   };
@@ -73,6 +81,7 @@ class Engine extends Component {
   render() {
     const { tick } = this.state;
     const { ufos } = this.props;
+    const { bullets } = this.props;
     // place things like <World>, <Body>, etc here
     return (
       <InputCapture>
@@ -85,6 +94,14 @@ class Engine extends Component {
                 return <UFO key={key} {...ufo} />;
               })}
             </div>
+            {Object.keys(bullets).map((key) => {
+              const bullet = bullets[key];
+              return (
+                <div style={ BULLET_CONTAINER_STYLE }>
+                  <Bullet key={key} {...bullet} />
+                </div>
+              );
+            })}
             <div style={ SHIP_CONTAINER_STYLE }>
               <Ship />
             </div>
@@ -95,8 +112,10 @@ class Engine extends Component {
   }
   static mapStateToProps = (state, ownProps) => {
     const { ships } = state.ufo;
+    const { bullets } = state.bullet;
     return {
       ufos: ships,
+      bullets: bullets,
       ...ownProps,
     };
   };

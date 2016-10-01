@@ -47,5 +47,8 @@
         }
       ]
     ]
+  },
+  "devDependencies": {
+    "throttle-debounce": "^1.0.1"
   }
 }
