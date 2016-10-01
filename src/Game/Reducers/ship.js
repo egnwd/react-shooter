@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { MOVE_SHIP, SHIP_STATE_RED } from '../Actions/ship';
+import { MOVE_SHIP, CHANGE_SHIP, SHIP_STATE_RED } from '../Actions/ship';
 
 const MAX_SHIP_HEALTH = 100;
 
@@ -27,6 +27,8 @@ const xOffset = (state = 0, action) => {
 
 const shipState = (state = SHIP_STATE_RED, action) => {
   switch (action.type) {
+    case CHANGE_SHIP:
+      return action.state;
     default:
       return state;
   }

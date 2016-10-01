@@ -6,7 +6,7 @@ import Ship from './Ship';
 import { tick } from '../Actions/tick';
 import { spawnUFO } from '../Actions/ufo';
 import connect from '../../Lib/connect';
-import MouseCapture from './MouseCapture';
+import InputCapture from './InputCapture';
 import UFO from './UFO';
 
 const TEXT_STYLE = {
@@ -75,7 +75,7 @@ class Engine extends Component {
     const { ufos } = this.props;
     // place things like <World>, <Body>, etc here
     return (
-      <MouseCapture>
+      <InputCapture>
         <World>
           <GameBackground src={'black.png'} repeat position={tick}>
             <div style={ TEXT_STYLE }>We are in the game! {tick}</div>
@@ -90,7 +90,7 @@ class Engine extends Component {
             </div>
           </GameBackground>
         </World>
-      </MouseCapture>
+      </InputCapture>
     );
   }
   static mapStateToProps = (state, ownProps) => {
